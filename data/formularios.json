@@ -1,0 +1,16 @@
+[
+  {
+    "nome": "João Silva",
+    "email": "joao@email.com",
+    "data_nascimento": "25/12/1990",
+    "telefone": "(11) 99999-9999",
+    "data_cadastro": "18/04/2026 18:41:35"
+  },
+  {
+    "nome": "FALO DE SOUZA 2",
+    "email": "teste@teste.com",
+    "data_nascimento": "09/02/1989",
+    "telefone": "(11) 99999-9999",
+    "data_cadastro": "18/04/2026 18:42:26"
+  }
+]

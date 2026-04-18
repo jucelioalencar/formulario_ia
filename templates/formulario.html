@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(244,0,9,0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #F40009;
+        }
+
+        .form-container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #F40009, #ff4d4d, #F40009);
+            border-radius: 20px 20px 0 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 35px;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 16px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #F40009;
+            background: rgba(244,0,9,0.1);
+            box-shadow: 0 0 20px rgba(244,0,9,0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #F40009 0%, #d30008 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(244,0,9,0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .mensagem {
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .mensagem.sucesso {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #4caf50;
+            display: block;
+        }
+
+        .mensagem.erro {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #ff5252;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                margin: 20px;
+                padding: 35px 25px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">COCA<span>COLA</span></div>
+    
+    <div class="form-container">
+        <h2>CADASTRO</h2>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="data-nascimento">Data de Nascimento</label>
+                <input type="text" id="data-nascimento" name="data-nascimento" placeholder="DD/MM/AAAA" onkeyup="formatarData(this)" maxlength="10" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefone">Celular</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 99999-9999" onkeyup="formatarTelefone(this)" maxlength="15" required>
+            </div>
+            
+            <button type="submit">ENVIAR</button>
+        </form>
+        <div id="mensagem" class="mensagem"></div>
+    </div>
+
+    <script>
+        function formatarData(campo) {
+            let valor = campo.value.replace(/\D/g, '');
+            if (valor.length > 8) {
+                valor = valor.substring(0, 8);
+            }
+            if (valor.length >= 2 && valor.length <= 4) {
+                valor = valor.replace(/(\d{2})(\d)/, '$1/$2');
+            } else if (valor.length >= 5) {
+                valor = valor.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
+            }
+            campo.value = valor;
+        }
+
+        function formatarTelefone(campo) {
+            let valor = campo.value.replace(/\D/g, '');
+            if (valor.length > 0) {
+                if (valor.length <= 2) {
+                    valor = '(' + valor;
+                } else if (valor.length <= 7) {
+                    valor = '(' + valor.substring(0, 2) + ') ' + valor.substring(2);
+                } else {
+                    valor = '(' + valor.substring(0, 2) + ') ' + valor.substring(2, 7) + '-' + valor.substring(7, 11);
+                }
+            }
+            campo.value = valor;
+        }
+
+        document.getElementById('formulario').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const dados = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                'data-nascimento': document.getElementById('data-nascimento').value,
+                telefone: document.getElementById('telefone').value
+            };
+            
+            const mensagem = document.getElementById('mensagem');
+            
+            try {
+                const response = await fetch('/salvar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                });
+                
+                const resultado = await response.json();
+                
+                if (response.ok) {
+                    mensagem.textContent = resultado.mensagem;
+                    mensagem.className = 'mensagem sucesso';
+                    document.getElementById('formulario').reset();
+                } else {
+                    mensagem.textContent = resultado.erro || 'Erro ao salvar';
+                    mensagem.className = 'mensagem erro';
+                }
+            } catch (erro) {
+                mensagem.textContent = 'Erro de conexão';
+                mensagem.className = 'mensagem erro';
+            }
+        });
+    </script>
+</body>
+</html>
