@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Formulário - Formulário IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 24px; font-weight: 700; }
+        .logo span { color: #F40009; }
+        .voltar { color: #ccc; text-decoration: none; }
+        .voltar:hover { color: #F40009; }
+        .container { padding: 40px; max-width: 600px; margin: 0 auto; }
+        .form-container {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+        h1 { font-size: 24px; margin-bottom: 30px; text-align: center; }
+        .form-group { margin-bottom: 22px; }
+        label { display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; }
+        input {
+            width: 100%; padding: 16px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-size: 16px; color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+        input:focus { outline: none; border-color: #F40009; }
+        button {
+            width: 100%; padding: 18px;
+            background: linear-gradient(135deg, #F40009 0%, #d30008 100%);
+            color: white; border: none; border-radius: 12px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            margin-top: 20px; font-family: 'Poppins', sans-serif;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(244,0,9,0.4); }
+        .mensagem {
+            padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 14px;
+        }
+        .mensagem.erro { background: rgba(244, 67, 54, 0.2); border: 1px solid rgba(244, 67, 54, 0.5); color: #ff5252; }
+        .mensagem.sucesso { background: rgba(76, 175, 80, 0.2); border: 1px solid rgba(76, 175, 80, 0.5); color: #4caf50; }
+        .link-gerado {
+            background: rgba(244,0,9,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            word-break: break-all;
+        }
+        .link-gerado strong { color: #F40009; display: block; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">COCA<span>COLA</span></div>
+        <a href="{{ url_for('dashboard') }}" class="voltar">← Voltar</a>
+    </header>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mensagem {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="form-container">
+            <h1>Novo Formulário</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome do Formulário</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Pesquisa de Satisfação" required>
+                </div>
+                <button type="submit">CRIAR FORMULÁRIO</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -208,6 +208,9 @@
     <div class="form-container">
         <h2>CADASTRO</h2>
         <form id="formulario">
+            {% if formulario %}
+            <input type="hidden" name="formulario_id" value="{{ formulario.id }}">
+            {% endif %}
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
@@ -272,9 +275,10 @@
             };
             
             const mensagem = document.getElementById('mensagem');
+            const url = {% if formulario %}'/formulario/{{ formulario.link_unico }}'{% else %}'/salvar'{% endif %};
             
             try {
-                const response = await fetch('/salvar', {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

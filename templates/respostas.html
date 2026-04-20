@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respostas - Formulário IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 24px; font-weight: 700; }
+        .logo span { color: #F40009; }
+        .voltar { color: #ccc; text-decoration: none; }
+        .voltar:hover { color: #F40009; }
+        .container { padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .info { margin-bottom: 30px; }
+        .info h1 { font-size: 24px; margin-bottom: 10px; }
+        .info p { color: #aaa; font-size: 14px; }
+        .info .link { 
+            background: rgba(244,0,9,0.1); 
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            color: #F40009;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .respostas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .resposta-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .resposta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .resposta-header span { color: #aaa; font-size: 13px; }
+        .btn-excluir {
+            background: transparent; color: #ff5252; border: 1px solid #ff5252;
+            padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;
+        }
+        .btn-excluir:hover { background: rgba(244, 67, 54, 0.2); }
+        .resposta-dados { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .dado label { display: block; color: #aaa; font-size: 12px; margin-bottom: 4px; }
+        .dado span { color: #fff; font-size: 14px; }
+        .empty { text-align: center; color: #666; padding: 60px 0; }
+        .mensagem {
+            padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 14px;
+        }
+        .mensagem.sucesso { background: rgba(76, 175, 80, 0.2); border: 1px solid rgba(76, 175, 80, 0.5); color: #4caf50; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">COCA<span>COLA</span></div>
+        <a href="{{ url_for('dashboard') }}" class="voltar">← Voltar</a>
+    </header>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mensagem {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="info">
+            <h1>{{ formulario.nome }}</h1>
+            <p>Criado em: {{ formulario.created_at.strftime('%d/%m/%Y') }}</p>
+            <div class="link">{{ request.host_url }}formulario/{{ formulario.link_unico }}</div>
+        </div>
+        {% if respostas %}
+        <div class="respostas-list">
+            {% for r in respostas %}
+            <div class="resposta-card">
+                <div class="resposta-header">
+                    <span>Enviado em: {{ r.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                    <form action="{{ url_for('excluir_resposta', id=r.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-excluir" onclick="return confirm('Excluir resposta?')">Excluir</button>
+                    </form>
+                </div>
+                <div class="resposta-dados">
+                    <div class="dado"><label>Nome</label><span>{{ r.dados.nome }}</span></div>
+                    <div class="dado"><label>Email</label><span>{{ r.dados.email }}</span></div>
+                    <div class="dado"><label>Data Nascimento</label><span>{{ r.dados.data_nascimento }}</span></div>
+                    <div class="dado"><label>Telefone</label><span>{{ r.dados.telefone }}</span></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty">
+            <p>Nenhuma resposta ainda.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
