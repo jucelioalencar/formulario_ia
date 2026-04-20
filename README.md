@@ -4,7 +4,7 @@ Sistema de formulário web com Flask.
 
 ## Link de Produção
 
-https://formulario:ia:51y4.onrender.com
+https://formulario-ia-51y4.onrender.com
 
 ## Como Executar Localmente
 
