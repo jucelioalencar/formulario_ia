@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 logger.info('Iniciando aplicacao Flask...')
+logger.info(f'Database URL: {"configurada" if app.config["SQLALCHEMY_DATABASE_URI"] else "NAO CONFIGURADA"}')
 
 db.init_app(app)
 
